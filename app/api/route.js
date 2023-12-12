@@ -1,20 +1,17 @@
 import { gineeApi } from "@/services/gineeApi";
 
-export async function POST({request}) {
-
-    // const result = await fetch("https://fakestoreapi.com/products");
-
-    const { httpMethod, requestUri, requestData } = request;
-    
+export async function POST(request) {
 
 
-
-    console.log(request, 'yyyy')
-
+    const data = await request.json();
     
     try {
-        const res = await gineeApi(httpMethod, requestUri, requestData);
-        console.log('Data from API:', res);
+        const res = await gineeApi(data.httpMethod, data.requestUri, data.requestData);
+          
+    return Response.json({
+        status: true,
+        data:  res
+    })
     } catch (error) {
        console.log(error, 'ini erro')
        return Response.json({status: false, error: error.message})
@@ -23,9 +20,5 @@ export async function POST({request}) {
 
 
 
-    
-    return Response.json({
-        status: true,
-        data: res
-    })
+  
 }
