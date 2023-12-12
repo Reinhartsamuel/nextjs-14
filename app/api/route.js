@@ -1,15 +1,15 @@
 import { gineeApi } from "@/services/gineeApi";
 
-export async function POST(req) {
+export async function POST({request}) {
 
     // const result = await fetch("https://fakestoreapi.com/products");
 
-    const { httpMethod, requestUri, requestData } = req.body;
+    const { httpMethod, requestUri, requestData } = request;
     
 
 
 
-    console.log(request.body, 'yyyy')
+    console.log(request, 'yyyy')
 
     
     try {
