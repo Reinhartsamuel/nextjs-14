@@ -20,7 +20,7 @@ export default function Home() {
       <Container justifyContent={'center'} display={'flex'} flexDirection={'column'} height={'100vh'} maxW="5xl">
         {/* <Center> */}
         <Heading alignSelf={'center'} my={10}>This is Home page</Heading>
-          <Accordion allowToggle allowMultiple>
+          <Accordion allowMultiple>
             <AccordionItem>
               <h2>
                 <AccordionButton>

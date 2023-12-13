@@ -541,14 +541,11 @@ export const setDocumentFirebase = async (
 
 // add document firebase
 
-export const addDocumentFirebase = async (collectionName, data, companyId) => {
-  if (!companyId) return 'No Company ID';
-
+export const addDocumentFirebase = async (collectionName, data) => {
   try {
     data.createdAt = new Date();
     data.lastUpdated = new Date();
     if (auth?.currentUser) data.createdBy = auth.currentUser.uid;
-    data.companyId = companyId;
 
     const docRef = await addDoc(collection(db, collectionName,), data,);
 
@@ -944,10 +941,8 @@ export const deleteFileFirebase = async (fileName, location,) => {
     },);
 };
 
-export const loginUser = async (email, password, dispatch,) => {
+export const loginUser = async (email, password) => {
   // ** update context state
-  dispatch({ type: 'REQUEST_LOGIN', },);
-
   try {
     const userCredential = await signInWithEmailAndPassword(
       auth,
@@ -955,33 +950,10 @@ export const loginUser = async (email, password, dispatch,) => {
       password,
     );
     const user = userCredential.user.email;
-
-    // ** update context state
-    dispatch({
-      type: 'LOGIN_SUCCESS',
-      payload: {
-        user: userCredential,
-      },
-    },);
-
-    // ** update local storage
-    localStorage.setItem('currentUser', JSON.stringify(userCredential,),);
-
-    // ** send log to slack
-    // loginSlack(user,);
-
     return userCredential;
   } catch (error) {
     // ** update context state
-    dispatch({
-      type: 'LOGIN_ERROR',
-      error: 'Incorrect email or password',
-    },);
     const errorMessage = error.message;
-
-    // ** send log to slack
-    // errorSlack(errorMessage,);
-
     throw errorMessage;
   }
 };
